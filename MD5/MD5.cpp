@@ -49,8 +49,8 @@ static constexpr int S[64] = {
 /* 
  * A usage string to be displayed if the user provides incorrect arguments.
  */
-static const std::string usage = "\nUsage:\nMD5 --message=\"...\" [--outputFile=\"...\"]\nOR\n"
-    "MD5 --messageFile=\"...\" [--outputFile=\"...\"]\n";
+static const std::string usage = "\nUsage:\nMD5 --message=\"...\" [--outputFile="
+    "\"...\"]\nOR\n" "MD5 --messageFile=\"...\" [--outputFile=\"...\"]\n";
 
 /*
  * The path to the output file, if provided by the user.
@@ -63,7 +63,8 @@ static std::string out_file;
  * the contents of the file are read into a vector of bytes.
  */
 static std::vector<uint8_t> md5_get_message(int argc, char** argv) {
-    std::map<std::string, std::string> args = parse_args(argc, argv, usage);
+    std::vector<std::string> accepted_args = {"message", "messageFile", "outputFile"};
+    std::map<std::string, std::string> args = parse_args(argc, argv, accepted_args, usage);
     if (args.find("outputFile") != args.end()) {
         out_file = args["outputFile"];
     }
